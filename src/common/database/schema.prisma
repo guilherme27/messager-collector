@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+  // url      = env("DATABASE_URL")
+}
+
+model User {
+  nome String
+  cpfcnpj String @id @unique
+  ispb String
+  agencia String
+  contaTransacional String
+  tipoconta String
+  messagesPagador Message[] @relation("pagador")
+  messagesRecebedor Message[] @relation("recebedor")
+  @@map("USER")
+}
+
+model Message {
+  endToEndId String @id @unique
+  valor Float
+  pagador User @relation(fields: [pagadorid], references: [cpfcnpj], name: "pagador" )
+  pagadorid String @unique
+  recebedor User @relation(fields: [recebedorid], references: [cpfcnpj], name: "recebedor")
+  recebedorid String @unique
+  campoLivre String?
+  txId String?
+  dataHoraPagamento DateTime @default(now())
+  @@map("MESSAGE")
+}
