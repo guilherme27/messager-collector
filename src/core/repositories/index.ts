@@ -1,0 +1,1 @@
+export { default as MessageRepository } from './message.repository';
