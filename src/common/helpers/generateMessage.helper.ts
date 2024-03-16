@@ -1,5 +1,5 @@
 import { Message } from '@/core/validations/message.validation'
-import { v4 as uuid } from 'uuid';
+import { uuidv7 as uuid } from 'uuidv7';
 import generatePerson from './generatePerson.helper';
 
 const generateMessage = (ispb: string) => {
