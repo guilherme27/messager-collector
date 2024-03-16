@@ -14,7 +14,8 @@ const CreateUser = async (users: User[]) => {
     });
 
     return await db.user.createMany({
-        data: data
+        data: data,
+        skipDuplicates: true
     });
 }
 
@@ -37,14 +38,15 @@ const CreateMessages = async (messages: Message[]) => {
 const insertData = async (messages: Message[]) => {
     const pagadores = messages.map((user) => user.pagador);
     const recebedores = messages.map((user) => user.recebedor);
-
+    const tempUsers = pagadores.concat(recebedores)
+    
     try{
-        await CreateUser([...pagadores, ...recebedores]);
+        await CreateUser(tempUsers); 
         await CreateMessages(messages);
     }catch (e) {
         console.log(e);
     }
-}
+};
 
 const findMessages = async (ispb: string, limit: number = 1) => {
     const messages: Message[] = await db.$queryRaw`
@@ -52,7 +54,7 @@ const findMessages = async (ispb: string, limit: number = 1) => {
         where u.cpfcnpj = m.recebedorid
         and u.ispb = ${ispb}
         order by m."dataHoraPagamento"
-        limit ${limit} 
+        limit ${limit}
     `;
     return messages
 };

@@ -33,7 +33,7 @@ const generateMessage = (ispb: string) => {
 
 const generateMessages = (ispb: string, quantity: number = 1) => {
     const messages = new Array(quantity).fill(null);
-    for (let i = 0; i <= quantity; i++ ){
+    for (let i = 0; i < quantity; i++ ){
         messages[i] = generateMessage(ispb)
     }    
 
