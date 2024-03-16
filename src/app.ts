@@ -10,7 +10,4 @@ const fastify = Fastify({ logger: true })
 
 routes(fastify);
 
-console.log(process.env.DB_URL);
-
-// Run the server!
 fastify.listen({ port: 3000 })
