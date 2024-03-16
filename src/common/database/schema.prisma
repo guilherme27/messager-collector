@@ -27,9 +27,9 @@ model Message {
   endToEndId String @id @unique
   valor Float
   pagador User @relation(fields: [pagadorid], references: [cpfcnpj], name: "pagador" )
-  pagadorid String @unique
+  pagadorid String
   recebedor User @relation(fields: [recebedorid], references: [cpfcnpj], name: "recebedor")
-  recebedorid String @unique
+  recebedorid String
   campoLivre String?
   txId String?
   dataHoraPagamento DateTime @default(now())
