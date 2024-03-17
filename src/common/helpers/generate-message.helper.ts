@@ -1,6 +1,6 @@
 import { Message } from '@/core/validations/message.validation'
 import { uuidv7 as uuid } from 'uuidv7';
-import generatePerson from './generatePerson.helper';
+import generatePerson from './generate-person.helper';
 
 const generateMessage = (ispb: string) => {
     const accountTypes = ['CA', 'CC', 'CP', 'CCO', 'CJ', 'CE', 'CB', 'CDI', 'CACC', 'SVGS']
