@@ -3,27 +3,29 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 import { Params } from '../validations/params.validation'
 import { GenerateMessages, GenerateResponse }  from '@/common/helpers';
 import { MessageRepository } from '../repositories';
+import { MessageService } from '../services';
 
 const collectors = new Array(6).fill(0);
 
 const messageStart = async (request: FastifyRequest, response: FastifyReply) => {
   const { ispb } = request.params as Params;
+  const contentType = request.headers['accept'];
 
   if (collectors.includes(ispb) || collectors.indexOf(0) === -1) {
-    console.log('Too many requests');
+    console.log('Too many requests'); 
     return response.status(429).send({ error: 'too many requests' });
   }
 
   collectors[collectors.indexOf(0)] = ispb;
-  let res: any[] = [];
-  
-  if (request.headers['content-type']?.startsWith('multipart')) {
-    res = await MessageRepository.findMessages(ispb, 10);    
-  } else {
-    res = await MessageRepository.findMessages(ispb);    
-  }
+
+  console.log(`\nispb = ${ispb} content-type = ${contentType}\n`)
+
+  let res = await MessageService.findAll({ispb, contentType: contentType});
 
   res = GenerateResponse(res);
+
+  if( res.length === 0) return response.status(204).send({error: 'No content'})
+
   if (res.length === 1) return response.status(200).headers({'Pull-Next': `${res[0].endToEndId}`}).send(res[0]);
   
   return response.status(200).headers({'Pull-Next': `${res[res.length-1].endToEndId}`}).send(res);
@@ -31,20 +33,19 @@ const messageStart = async (request: FastifyRequest, response: FastifyReply) => 
 
 const messageIterator = async (request: FastifyRequest, response: FastifyReply) => {
   const { ispb, interationId } = request.params as Params;
+  const contentType = request.headers['accept'];
 
   if (collectors.includes(ispb)) {
-    let res;
 
-    if (request.headers['content-type']?.startsWith('multipart')) {
-      res = await MessageRepository.findMessagesIterable(ispb, interationId, 10); 
-    } else {
-      res = await MessageRepository.findMessagesIterable(ispb, interationId);    
-    }
+    let res = await MessageService.findAll({ispb, contentType: contentType, interationId});
 
     res = GenerateResponse(res);
+
+    if( res.length === 0) return response.status(204).send({error: 'No content'})
+
     if (res.length === 1) return response.status(200).headers({'Pull-Next': `${res[0].endToEndId}`}).send(res[0]);
 
-    return response.status(200).headers({'Pull-Next': `${res[res.length-1].endToEndId}`}).send(res); 
+    return response.status(200).headers({'Pull-Next': `${res[res.length-1].endToEndId}`}).send(res);
   }
 
   return response.status(204).send({ error: 'ispb not started' });
