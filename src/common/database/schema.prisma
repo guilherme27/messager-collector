@@ -10,11 +10,11 @@ datasource db {
 
 model User {
   nome String
-  cpfcnpj String @id @unique
+  cpfCnpj String @id @unique
   ispb String
   agencia String
   contaTransacional String
-  tipoconta String
+  tipoConta String
   messagesPagador Message[] @relation("pagador")
   messagesRecebedor Message[] @relation("recebedor")
   @@map("USER")
@@ -23,9 +23,9 @@ model User {
 model Message {
   endToEndId String @id @unique
   valor Float
-  pagador User @relation(fields: [pagadorid], references: [cpfcnpj], name: "pagador" )
+  pagador User @relation(fields: [pagadorid], references: [cpfCnpj], name: "pagador" )
   pagadorid String
-  recebedor User @relation(fields: [recebedorid], references: [cpfcnpj], name: "recebedor")
+  recebedor User @relation(fields: [recebedorid], references: [cpfCnpj], name: "recebedor")
   recebedorid String
   campoLivre String?
   txId String?
