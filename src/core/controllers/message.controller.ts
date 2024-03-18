@@ -73,4 +73,4 @@ const addMessage = async (request: FastifyRequest, response: FastifyReply) => {
   return response.status(201).send({})
 };
 
-export default { messageStart, messageIterator, messageCancel, addMessage};
+export default { messageStart, messageIterator, messageCancel, addMessage };
