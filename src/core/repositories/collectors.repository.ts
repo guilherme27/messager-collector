@@ -1,35 +1,48 @@
 import { db } from '@/common/libs';
-import { User, Message } from '../validations/message.validation';
 
 const insertCollector = async (ispb: string) => {
-    return await db.colectors.create({
+    return await db.collectors.create({
         data: { ispb },
     });
 }
 
-const hasStreamActive = async (ispb: string) => {
-    return await db.$queryRaw`
+const hasStreamActive = async (ispb: string): Promise<[]> => {
+    const hasStarted: [] = await db.$queryRaw`
         select * from "COLLECTORS" c
         where c.is_active = true
         and c.ispb = ${ispb}
     `;
+
+    return hasStarted
 }
 
-const hasVacancy = async () => {
-    return await db.$queryRaw`
-        select count(*) from "COLLECTORS" c
-        where c.is_active = true
-    `;
+const getNumberCollectors = async () => {
+    const count = await db.collectors.count({
+        where: {
+          is_active: true
+        }
+    });
+
+    return count;
 }
 
-const deactivateStream = async (ispb: string) => {
-    return await db.$queryRaw`
+const deactivateStream = async (ispb: string, interationId: string) => {
+    await db.$queryRaw`
         update "COLLECTORS"
         set is_active = false
-        where c.is_active = true
+        where is_active = true
         and ispb = ${ispb}
     `;
+
+    await db.$queryRaw`
+        update "MESSAGE"
+        set read = now()
+        where "endToEndId" <= ${interationId}
+        and read is null
+    `;
+
+    return
 }
 
 
-export default { insertCollector, hasStreamActive, hasVacancy, deactivateStream };
+export default { insertCollector, hasStreamActive, getNumberCollectors, deactivateStream };

@@ -57,6 +57,7 @@ const findMessages = async (ispb: string, limit: number = 1) => {
         where u1."cpfCnpj" = m.recebedorid
         and u2."cpfCnpj" = m.pagadorid
         and u1.ispb = ${ispb}
+        and m.read is null
         order by m."endToEndId"
         limit ${limit}
     `;
@@ -73,6 +74,7 @@ const findMessagesIterable = async (ispb: string, interationId: string, limit: n
         and u2."cpfCnpj" = m.pagadorid
         and u1.ispb = ${ispb}
         and m."endToEndId" > ${interationId}
+        and m.read is null
         order by m."endToEndId"
         limit ${limit}
     `;
