@@ -6,12 +6,12 @@ const userSchema = z.object({
     ispb: z.string().min(8).max(8),
     agencia: z.string().min(4).max(4),
     contaTransacional: z.string().min(7).max(7),
-    tipoConta: z.string().min(2).max(4)
-})
+    tipoConta: z.string().min(2).max(4),
+});
 
 const schema = z.object({
     endToEndId: z.string().uuid(),
-    valor: z.number().multipleOf(0.01), 
+    valor: z.number().multipleOf(0.01),
     pagador: userSchema,
     recebedor: userSchema,
     campoLivre: z.string().optional(),

@@ -8,7 +8,7 @@ export type responseMessage = {
         agencia: string;
         contaTransacional: string;
         tipoConta: string;
-    },
+    };
     recebedor: {
         ispb: string;
         nome: string;
@@ -16,8 +16,8 @@ export type responseMessage = {
         agencia: string;
         contaTransacional: string;
         tipoConta: string;
-    },
+    };
     campoLivre?: string | undefined;
     txId?: string | undefined;
-    dataHoraPagamento?: string | undefined
-}
+    dataHoraPagamento?: string | undefined;
+};

@@ -1,4 +1,5 @@
 import { db } from '@/common/libs';
+
 import { User, Message } from '../validations/message.validation';
 
 const CreateUser = async (users: User[]) => {
@@ -9,15 +10,15 @@ const CreateUser = async (users: User[]) => {
             ispb: user.ispb,
             agencia: user.agencia,
             contaTransacional: user.contaTransacional,
-            tipoConta: user.tipoConta
+            tipoConta: user.tipoConta,
         };
     });
 
     return await db.user.createMany({
         data: data,
-        skipDuplicates: true
+        skipDuplicates: true,
     });
-}
+};
 
 const CreateMessages = async (messages: Message[]) => {
     const data = messages.map((message) => {
@@ -26,24 +27,24 @@ const CreateMessages = async (messages: Message[]) => {
             valor: message.valor,
             pagadorid: message.pagador.cpfCnpj,
             recebedorid: message.recebedor.cpfCnpj,
-            txId: message.txId
+            txId: message.txId,
         };
-    })
+    });
 
     return await db.message.createMany({
-        data: data
+        data: data,
     });
-}
+};
 
 const insertData = async (messages: Message[]) => {
     const pagadores = messages.map((user) => user.pagador);
     const recebedores = messages.map((user) => user.recebedor);
-    const tempUsers = pagadores.concat(recebedores)
-    
-    try{
-        await CreateUser(tempUsers); 
+    const tempUsers = pagadores.concat(recebedores);
+
+    try {
+        await CreateUser(tempUsers);
         await CreateMessages(messages);
-    }catch (e) {
+    } catch (e) {
         console.log(e);
     }
 };

@@ -4,7 +4,7 @@ const insertCollector = async (ispb: string) => {
     return await db.collectors.create({
         data: { ispb },
     });
-}
+};
 
 const hasStreamActive = async (ispb: string): Promise<[]> => {
     const hasStarted: [] = await db.$queryRaw`
@@ -13,18 +13,18 @@ const hasStreamActive = async (ispb: string): Promise<[]> => {
         and c.ispb = ${ispb}
     `;
 
-    return hasStarted
-}
+    return hasStarted;
+};
 
 const getNumberCollectors = async () => {
     const count = await db.collectors.count({
         where: {
-          is_active: true
-        }
+            is_active: true,
+        },
     });
 
     return count;
-}
+};
 
 const deactivateStream = async (ispb: string, interationId: string) => {
     await db.$queryRaw`
@@ -41,8 +41,7 @@ const deactivateStream = async (ispb: string, interationId: string) => {
         and read is null
     `;
 
-    return
-}
-
+    return;
+};
 
 export default { insertCollector, hasStreamActive, getNumberCollectors, deactivateStream };

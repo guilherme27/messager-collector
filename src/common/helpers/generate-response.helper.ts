@@ -1,11 +1,11 @@
-import { responseMessage } from "@/@types/response-message";
+import { responseMessage } from '@/@types/response-message';
 
 const generateResponse = (messages: responseMessage[]) => {
     const resMessages = messages.map((message: any) => {
         return {
             endToEndId: message.endToEndId,
             valor: message.valor,
-            pagador: { 
+            pagador: {
                 nome: message.nome,
                 cpfCnpj: message.cpfCnpj,
                 ispb: message.ispb,
@@ -21,13 +21,13 @@ const generateResponse = (messages: responseMessage[]) => {
                 contaTransacional: message.contaRecebedor,
                 tipoConta: message.tipoRecebedor,
             },
-            campoLivre: message.campoLivre?message.campoLivre:"",
+            campoLivre: message.campoLivre ? message.campoLivre : '',
             txId: message.txId,
-            dataHoraPagamento: message.dataHoraPagamento
-        }
+            dataHoraPagamento: message.dataHoraPagamento,
+        };
     });
-    
+
     return resMessages;
-}
+};
 
 export default generateResponse;

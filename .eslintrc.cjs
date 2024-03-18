@@ -26,7 +26,7 @@ module.exports = {
       'warn',
       {
         printWidth: 120,
-        tabWidth: 2,
+        tabWidth: 4,
         useTabs: false,
         semi: true,
         singleQuote: true,
@@ -36,10 +36,6 @@ module.exports = {
         arrowParens: 'always',
         parser: 'typescript',
         proseWrap: 'always',
-      },
-      'error',
-      {
-        endOfFile: 'auto',
       },
     ],
     'import-helpers/order-imports': [
