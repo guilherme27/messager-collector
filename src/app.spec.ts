@@ -34,7 +34,7 @@ const mockMessage = [
     },
 ];
 
-describe('Test intere api', async () => {
+describe('Test messager-collector-api', async () => {
     await fastify.ready();
 
     it('Test start stream route with invalid params', async () => {
