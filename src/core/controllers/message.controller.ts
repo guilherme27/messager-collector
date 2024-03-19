@@ -43,7 +43,7 @@ const messageIterator = async (request: FastifyRequest, response: FastifyReply) 
 
     const hasStarted = await CollectorRepository.hasStreamActive(ispb);
 
-    if (hasStarted) {
+    if (hasStarted.length !== 0) {
         let res = await MessageService.findAll({ ispb, contentType: contentType, interationId });
 
         res = GenerateResponse(res);
@@ -70,7 +70,7 @@ const messageCancel = async (request: FastifyRequest, response: FastifyReply) =>
 
     const hasStarted = await CollectorRepository.hasStreamActive(ispb);
 
-    if (hasStarted) {
+    if (hasStarted.length !== 0) {
         await CollectorRepository.deactivateStream(ispb, interationId);
         return response.status(200).send({});
     }
