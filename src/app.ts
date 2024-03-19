@@ -1,13 +1,16 @@
-import Fastify from 'fastify'
-import dotenv from 'dotenv';
+import Fastify from 'fastify';
 
-dotenv.config()
+import dotenv from 'dotenv';
 
 import routes from '@/core/routes';
 
+dotenv.config();
 
-const fastify = Fastify({ logger: true })
+const fastify = Fastify({ logger: true });
+const PORT = (process.env.PORT && parseInt(process.env.PORT)) || 3000;
 
 routes(fastify);
 
-fastify.listen({ port: 3000 })
+fastify.listen({ port: PORT });
+
+export default fastify;
