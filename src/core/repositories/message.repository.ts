@@ -45,7 +45,7 @@ const insertData = async (messages: Message[]) => {
         await CreateUser(tempUsers);
         await CreateMessages(messages);
     } catch (e) {
-        console.log(e);
+        console.error(e);
     }
 };
 
