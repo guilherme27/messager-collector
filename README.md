@@ -57,7 +57,7 @@ Na pasta raiz do projeto crie um arquivo `.env` com os valores das seguintes var
     #Tempo a cada tentativa para verificação do banco para busca de informação quando sem conteudo (em ms)
     TIME_TO_RECHECK=500
     #Tempo em que se mantém buscando no banco de dados quando sem conteudo (em ms)
-    (para seguir os requisitos do desafio é necessário inserir 8000)
+    #(para seguir os requisitos do desafio é necessário inserir 8000)
     TIME_TRYING=8000
 ```
 
