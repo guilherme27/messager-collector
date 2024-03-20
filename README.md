@@ -3,7 +3,7 @@
 
 Api desenvolvida para o desafio da Beeteller. A api foi desenvolvido com [NodeJS](https://nodejs.org/en) e [Fastify](https://fastify.dev/) como framework de desenvolvimento, utilizando como linguagem principal o TypeScript. Para fazer a persistência dos dados, foi utilizado o [PostgresSQL](https://www.postgresql.org/) e usado o [Vitest](https://vitest.dev/) para criação do teste de integração e de componente.
 
-A escolha do Node foi feita devido a sugestão na descrição do desafio e também por ser a ferramenta na qual tenho maior experiência. O compilador de TypeScript foi utilizado o próprio Tsc, o Fastify foi escolhido por seu desenpenho nos processamentos de requisições e o [Prisma] como ORM para gerenciar a conexão e a manipulação de dados com o banco de dados.
+A escolha do Node foi feita devido a sugestão na descrição do desafio e também por ser a ferramenta na qual tenho maior experiência. O compilador de TypeScript foi utilizado o próprio Tsc, o Fastify foi escolhido por seu desenpenho nos processamentos de requisições e o [Prisma](https://www.prisma.io/) como ORM para gerenciar a conexão e a manipulação de dados com o banco de dados.
 
 A api está online hospedado na render. Você pode acessar a partir do link abaixo:
 [API](https://messager-collector.onrender.com/health)
