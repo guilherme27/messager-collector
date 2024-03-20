@@ -12,7 +12,7 @@
     "build": "tsc && tsc-alias",
     "coverage": "vitest --coverage",
     "dev": "tsx watch src/app.ts",
-    "poststart": "npx prisma migrate dev --name init",
+    "migrate": "npx prisma migrate dev --name init",
     "postinstall": "prisma generate",
     "test": "vitest --config ./vite.config.ts"
   },

@@ -6,7 +6,6 @@ WORKDIR /usr/src/app
 COPY . /usr/src/app
 
 RUN yarn install
-RUN yarn prisma
 
 RUN yarn build
 
