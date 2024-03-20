@@ -9,7 +9,7 @@
   "main": "src/app.ts",
   "scripts": {
     "start": "node ./dist/app.js",
-    "build": "tsc && tsc-alias",
+    "build": "tsc -p tsconfig.prod.json && tsc-alias",
     "coverage": "vitest --coverage",
     "dev": "tsx watch src/app.ts",
     "migrate": "npx prisma migrate dev --name init",
