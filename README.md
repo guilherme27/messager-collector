@@ -11,13 +11,25 @@ A api está online hospedado na render. Você pode acessar a partir do link abai
 ### Observações:
 
     1 - Veja que o endpoint de acesso está apontando para o /health : Apenas retorna que a api está rodando
+    
     2 - Os endpoints aceitos pela api são:
-        get /health : verifica se o servidor está rodando - retorno 200
+    
+        get `/health` : verifica se o servidor está rodando - retorno 200
+        
         post /api/util/msgs/[ispb]/[quantity] : cria novas mensagens pix (ispb: 8 digitos numéricos, quantity: valor numérico)
-        get /api/pix/[ispb]/stream/start : abre um stream de consulta de mensagem(ns) pix pelo ispb (header: accept: multipart/json para retornar até 10 mensagens por iteração) - retorno pull-next : iterationId
-        get /api/pix/[ispb]/stream/[iterationId] : consulta a próxima iteração do stream requisição de mensagem(ns) pix (header: accept: multipart/json para retornar até 10 mensagens por iteração) - retorno pull-next : iterationId
+        
+        get /api/pix/[ispb]/stream/start : abre um stream de consulta de mensagem(ns) pix pelo ispb 
+        (header: accept: multipart/json para retornar até 10 mensagens por iteração) - retorno pull-next : iterationId
+        
+        get /api/pix/[ispb]/stream/[iterationId] : consulta a próxima iteração do stream requisição de mensagem(ns) pix 
+        (header: accept: multipart/json para retornar até 10 mensagens por iteração) - retorno pull-next : iterationId
+        
         delete /api/pix/[ispb]/stream/[iterationId] : Fecha o stream de consulta de mensagem(ns) e confirma o recebimento das mensagens lidas para evitar retorno duplicado no futuro - retorno 200
-    3 - Lembre-se que a API rodando pelo servidor da render tem limitação de requisições consecutivas pois está em uso de um servidor gratuito e são limitações dada pela plataforma e como uma das regras é que ao demorar 5 min sem requisições a api ela é desativada e reativada após aproximadamente 1 min após a próxima requisição.
+        
+    3 - Lembre-se que a API rodando pelo servidor da render tem limitação de requisições consecutivas pois está em uso de um servidor gratuito
+    e são limitações dada pela plataforma e como uma das regras é que ao demorar 5 min sem requisições a api ela é desativada e reativada após
+    aproximadamente 1 min após a próxima requisição.
+    
     4 - O banco de dados da API rodando na render é um banco de dados rodando live pelo NEON para evitar sobrecargas no servidor.
 
 
@@ -25,19 +37,33 @@ A api está online hospedado na render. Você pode acessar a partir do link abai
 
 Antes de executarmos o projeto precisamos primeiro configurar algumas variáveis de ambiente.
 
-> Na pasta raiz do projeto crie um arquivo '.env' com os valores das seguintes variáveis:
-    PORT - Porta em que estára ouvindo as requisições da api (ex: 3000)
-    HOST - Host onde estará hospedado a api (ex: 0.0.0.0)
-    DB_USER - Usuário do banco de dados postgres
-    DB_PASSWORD - Senha do usuário do banco de dados
-    DB_NAME - Nome do banco de dados
-    DB_PORT - Porta onde está o banco de dados
-    DB_HOST - Host onde está o banco de dados
+Na pasta raiz do projeto crie um arquivo `.env` com os valores das seguintes variáveis:
 
-    TIME_TO_RECHECK - tempo a cada tentativa para verificação do banco para busca de informação quando sem conteudo (em ms) - (recomendação = 500)
-    TIME_TRYING - tempo em que se mantém buscando no banco de dados quando sem conteudo (em ms) - (recomendação = 8000) (para seguir os requisitos do desafio é necessário inserir 8000)
+```enviroment
+    #Porta em que estára ouvindo as requisições da api (ex: 3000)
+    PORT=3000
+    #Host onde estará hospedado a api (ex: 0.0.0.0)
+    HOST=0.0.0.0
+    #Usuário do banco de dados postgres
+    DB_USER= 
+    #Senha do usuário do banco de dados
+    DB_PASSWORD=
+    #Nome do banco de dados
+    DB_NAME=
+    #Porta onde está o banco de dados    
+    DB_PORT= 
+    #Host onde está o banco de dados
+    DB_HOST= 
+    #Tempo a cada tentativa para verificação do banco para busca de informação quando sem conteudo (em ms)
+    TIME_TO_RECHECK=500
+    #Tempo em que se mantém buscando no banco de dados quando sem conteudo (em ms)
+    (para seguir os requisitos do desafio é necessário inserir 8000)
+    TIME_TRYING=8000
+```
 
 Para a execução do projeto de forma local você pode executar em uma maquina virtual com o docker ou nativamente na sua máquina com o node.
+
+##Execução local
 
 Para executar nativamente você vai precisar de:
 
@@ -93,7 +119,7 @@ yarn build
 ```bash
 yarn start
 ```
-
+##Execução por docker
 Para executar a partir de uma máquina virtual com o docker, você vai precisar de:
 
 * Ter o [Docker](https://www.docker.com/) instalado e executando.
