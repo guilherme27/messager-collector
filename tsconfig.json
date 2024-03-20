@@ -23,6 +23,6 @@
     },
     "exclude": [
         "vite.config.ts",
-        "/.spec."
+        "**/*.spec.*"
     ]
 }
