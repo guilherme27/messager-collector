@@ -12,8 +12,8 @@
     "build": "tsc && tsc-alias",
     "coverage": "vitest --coverage",
     "dev": "tsx watch src/app.ts",
-    "migrate": "npx prisma migrate dev --name init",
-    "prisma": "prisma generate",
+    "poststart": "npx prisma migrate dev --name init",
+    "postinstall": "prisma generate",
     "test": "vitest --config ./vite.config.ts"
   },
   "dependencies": {
@@ -23,6 +23,7 @@
     "prisma": "^5.11.0",
     "tsc-alias": "^1.8.8",
     "uuidv7": "^0.6.3",
+    "typescript": "^5.4.2",
     "zod": "^3.22.4"
   },
   "devDependencies": {
@@ -39,7 +40,6 @@
     "prettier": "^3.2.5",
     "supertest": "^6.3.4",
     "tsx": "^4.7.1",
-    "typescript": "^5.4.2",
     "vitest": "^1.4.0"
   },
   "prisma": {
