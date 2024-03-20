@@ -1,41 +1,28 @@
 {
-  "compilerOptions": {
-    "types": [
-      "node",
-      "fastify"
-    ],
-    "target": "ESNext",
-    "module": "ESNext",
-    "esModuleInterop": true,
-    "moduleResolution": "Node",
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "composite": true,
-    "emitDeclarationOnly": true,
-    "allowImportingTsExtensions": true,
-    "moduleDetection": "auto",
-    "traceResolution": true,
-    "rootDir": "./src",
-    "skipLibCheck": true,
-    "lib": [
-      "ESNext"
-    ],
-    "typeRoots": [
-      "./node_modules/@types",
-      "./src/@types"
-    ],
-    "resolveJsonModule": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "src/*"
-      ]
-    }
-  },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "display": "Node 20",
+    "_version": "20.1.0",
+    "compilerOptions": {
+        "outDir": "dist",
+        "lib": [
+            "es2023"
+        ],
+        "module": "node16",
+        "target": "es2022",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "moduleResolution": "NodeNext",
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "src/*"
+            ]
+        }
+    },
+    "exclude": [
+        "vite.config.ts",
+        "/.spec."
+    ]
 }

@@ -4,8 +4,8 @@ import { MessageRepository } from '@/core/repositories';
 type ContentType = string | string[] | undefined;
 type BuildResquestProps = { ispb: string; contentType?: ContentType; interationId?: string };
 
-const TIME_TO_RECHECK = (process.env.TIME_TO_RECHECK && parseInt(process.env.TIME_TO_RECHECK)) || 500;
-const TIME_TRYING = (process.env.TIME_TRYING && parseInt(process.env.TIME_TRYING)) || 8000;
+const TIME_TO_RECHECK = (process.env.TIME_TO_RECHECK && Number(process.env.TIME_TO_RECHECK)) || 500;
+const TIME_TRYING = (process.env.TIME_TRYING && Number(process.env.TIME_TRYING)) || 8000;
 
 const findAll = async (props: BuildResquestProps, iteration: number = 1): Promise<responseMessage[]> => {
     const response = await buildRequestByContentType(props);
