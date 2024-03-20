@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+  // url      = env("DATABASE_URL")
+}
+
+model User {
+  nome              String
+  cpfCnpj           String    @id @unique
+  ispb              String
+  agencia           String
+  contaTransacional String
+  tipoConta         String
+  messagesPagador   Message[] @relation("pagador")
+  messagesRecebedor Message[] @relation("recebedor")
+
+  @@map("USER")
+}
+
+model Message {
+  endToEndId        String    @id @unique
+  valor             Float
+  pagador           User      @relation(fields: [pagadorid], references: [cpfCnpj], name: "pagador")
+  pagadorid         String
+  recebedor         User      @relation(fields: [recebedorid], references: [cpfCnpj], name: "recebedor")
+  recebedorid       String
+  campoLivre        String?
+  txId              String?
+  dataHoraPagamento DateTime  @default(now())
+  read              DateTime?
+
+  @@map("MESSAGE")
+}
+
+model Collectors {
+  id        Int      @id @default(autoincrement())
+  ispb      String
+  is_active Boolean  @default(true)
+  date      DateTime @default(now())
+
+  @@map("COLLECTORS")
+}

@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - '${APP_PORT:-3000}:${APP_PORT:-3000}'
+        depends_on:
+            - postgres
+        environment:
+            - PORT=${PORT}
+            - DB_USER=${DB_USER}
+            - DB_PASSWORD=${DB_PASSWORD}
+            - DB_NAME=${DB_NAME}
+            - DB_PORT=${DB_PORT}
+            - DB_URL=postgresql://${DB_USER}:${DB_PASSWORD}@postgres:${DB_PORT}/${DB_NAME}?schema=public
+            - TIME_TO_RECHECK=${TIME_TO_RECHECK}
+            - TIME_TRYING=${TIME_TRYING}
+        networks:
+            - app-network
+
+    postgres:
+        image: postgres:16-alpine
+        ports:
+            - '${DB_PORT:-5432}:${DB_PORT:-5432}'
+        environment:
+            POSTGRES_USER: ${DB_USER}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+            POSTGRES_DB: ${DB_NAME}
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        networks:
+            - app-network
+
+    migration:
+        build:
+            context: .
+        links:
+            - app
+            - postgres
+        depends_on:
+            - app
+            - postgres
+        command: npx prisma migrate dev --name init
+        environment:
+            - DB_URL=postgresql://${DB_USER}:${DB_PASSWORD}@postgres:${DB_PORT}/${DB_NAME}?schema=public
+        networks:
+            - app-network
+
+volumes:
+    postgres_data:
+networks:
+    app-network:
+        driver: bridge

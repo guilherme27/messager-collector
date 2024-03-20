@@ -1,0 +1,7 @@
+node_modules
+.vscode
+pnpm-lock.yaml
+.env
+coverage
+dist
+*.tsbuildinfo
