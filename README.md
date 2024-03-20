@@ -10,27 +10,27 @@ A api está online hospedado na render. Você pode acessar a partir do link abai
 
 ### Observações:
 
-    1 - Veja que o endpoint de acesso está apontando para o /health : Apenas retorna que a api está rodando
+1. Veja que o endpoint de acesso está apontando para o /health : Apenas retorna que a api está rodando
     
-    2 - Os endpoints aceitos pela api são:
+2. Os endpoints aceitos pela api são:
     
-        get `/health` : verifica se o servidor está rodando - retorno 200
+   get `/health` : verifica se o servidor está rodando - retorno 200
         
-        post /api/util/msgs/[ispb]/[quantity] : cria novas mensagens pix (ispb: 8 digitos numéricos, quantity: valor numérico)
+   post /api/util/msgs/[ispb]/[quantity] : cria novas mensagens pix (ispb: 8 digitos numéricos, quantity: valor numérico)
         
-        get /api/pix/[ispb]/stream/start : abre um stream de consulta de mensagem(ns) pix pelo ispb 
-        (header: accept: multipart/json para retornar até 10 mensagens por iteração) - retorno pull-next : iterationId
+   get /api/pix/[ispb]/stream/start : abre um stream de consulta de mensagem(ns) pix pelo ispb 
+   (header: accept: multipart/json para retornar até 10 mensagens por iteração) - retorno pull-next : iterationId
         
-        get /api/pix/[ispb]/stream/[iterationId] : consulta a próxima iteração do stream requisição de mensagem(ns) pix 
-        (header: accept: multipart/json para retornar até 10 mensagens por iteração) - retorno pull-next : iterationId
+   get /api/pix/[ispb]/stream/[iterationId] : consulta a próxima iteração do stream requisição de mensagem(ns) pix 
+   (header: accept: multipart/json para retornar até 10 mensagens por iteração) - retorno pull-next : iterationId
         
-        delete /api/pix/[ispb]/stream/[iterationId] : Fecha o stream de consulta de mensagem(ns) e confirma o recebimento das mensagens lidas para evitar retorno duplicado no futuro - retorno 200
+   delete /api/pix/[ispb]/stream/[iterationId] : Fecha o stream de consulta de mensagem(ns) e confirma o recebimento das mensagens lidas para evitar retorno duplicado no futuro - retorno 200
         
-    3 - Lembre-se que a API rodando pelo servidor da render tem limitação de requisições consecutivas pois está em uso de um servidor gratuito
-    e são limitações dada pela plataforma e como uma das regras é que ao demorar 5 min sem requisições a api ela é desativada e reativada após
-    aproximadamente 1 min após a próxima requisição.
+3. Lembre-se que a API rodando pelo servidor da render tem limitação de requisições consecutivas pois está em uso de um servidor gratuito
+e são limitações dada pela plataforma e como uma das regras é que ao demorar 5 min sem requisições a api ela é desativada e reativada após
+aproximadamente 1 min após a próxima requisição.
     
-    4 - O banco de dados da API rodando na render é um banco de dados rodando live pelo NEON para evitar sobrecargas no servidor.
+4. O banco de dados da API rodando na render é um banco de dados rodando live pelo NEON para evitar sobrecargas no servidor.
 
 
 ### Requisitos para execução
@@ -132,5 +132,6 @@ Para executar a partir de uma máquina virtual com o docker, você vai precisar 
 docker compose up
 ```
 
-Após as imagens serem baixadas e os containers em execução você pode fazer as requisições de endpoint comentadas anteriormente com o host e porta definidos no seu arquivo de variaveis de ambiente 
-    
+### Observação
+
+Após a execução dos containers, é executado as migrations em um serviço específico. É possível que quando ele é executado, o container do banco de dados tenha subido, porém sem ter criado o banco de dados ainda. Por esta execução assíncrona, é possível que as migrations não rodem de primeira. Caso ocorra, é só parar os containers com um `docker compose down` e subir novamente com um `docker compose up`.
