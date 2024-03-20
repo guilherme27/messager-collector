@@ -82,7 +82,7 @@ const addMessage = async (request: FastifyRequest, response: FastifyReply) => {
     const { ispb, number } = request.params as Params;
 
     const messages = GenerateMessages(ispb.toString(), number);
-    MessageRepository.insertData(messages);
+    await MessageRepository.insertData(messages);
 
     return response.status(201).send({});
 };
